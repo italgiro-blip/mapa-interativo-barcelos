@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Leaflet con Escala Discreta</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles_V3.css">
+</head>
+<body>
+
+<div class="controls">
+    <button type="button" id="btnCargarGeoJSON" class="map-button">Carregamento do ficheiro GeoJSON </button>
+    <label>ID <select id="idSelect"></select></label>
+    <label>Etiqueta <select id="labelSelect"></select></label>
+    <label>Variável <select id="variableSelect"></select></label>
+    <label>Classificação
+        <select id="classificationSelect">
+            <option value="equal">Intervalos Iguais</option>
+            <option value="jenks">Quebras Naturais</option>
+            <option value="quantile">Quantis</option>
+        </select>
+    </label>
+    <label>Paleta
+        <select id="paletteSelect">
+            <option value="blue">Azul</option>
+<option value="azure">Violeta</option>
+<option value="red">Vermelho</option>
+<option value="green">Verde</option>
+<option value="purple">Roxo</option>
+<option value="fire">Laranja</option>
+        </select>
+    </label>
+</div>
+
+<div class="map-overlay-header">
+    <div class="header-content">
+        <img src="https://w7.pngwing.com/pngs/464/735/png-transparent-barcelos-portugal-portuguese-cuisine-chicken-rooster-caldeirada-rooster-animals-galliformes-bird-thumbnail.png" alt="Logo" class="map-logo">
+        <h1 id="mainTitle">MUNICÍPIO DE BARCELOS</h1>
+        <p>Análise de Distribuição e Indicadores Geográficos</p>
+        <h2 id="subTitle">Selecione uma variável</h2>
+
+    </div>
+</div>
+
+<div class="controls">
+    <!-- filtros -->
+    </div>
+
+<div class="side-images">
+    <img src="https://www.heraldicacivica.pt/images/armas/bcl.gif" alt="Imagen Superior" class="side-image top">
+    <img src="https://www.crwflags.com/fotw/images/p/pt-bcl.gif" class="side-image bottom">
+</div>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Nuestro JS -->
+<script src="script_V3.js"></script>
+
+</body>
+</html>
