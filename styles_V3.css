@@ -1,189 +1,116 @@
+/* --- CONFIGURACIÓN BASE --- */
 html, body {
     margin: 0;
     padding: 0;
-    width: 100vw;  
-    height: 100vh; 
+    width: 100%;
+    height: 100%;
     font-family: 'Roboto Condensed', sans-serif;
     background: #1a1a1a;
     color: #eee;
     overflow: hidden; 
 }
 
-#subTitle {
-    margin: 5px 0 0 0; /* Espacio pequeño arriba */
-    font-size: 16px;   /* Más pequeño que el h1 */
-    font-weight: 400;
-    color: #bbb;       /* Color gris claro para que sea secundario */
-    text-transform: none; 
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-
-
+/* --- MAPA (IMPORTANTE: DEBE TENER ALTURA) --- */
 #map {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-    background: #fafbfc; 
-}
-
-
-
-
-.leaflet-container {
-    background: #fafbfc !important;
-    outline: 0;
-}
-
-.controls {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(40, 40, 40, 0.9);
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.1);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.controls label {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: #bbb;
-}
-
-.controls select, .controls input {
-    background: #333;
-    color: white;
-    border: 1px solid #555;
-    padding: 4px;
-    border-radius: 4px;
-}
-
-
-.legend {
-    background: rgba(30, 30, 30, 0.9);
-    padding: 15px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: row;
-    background: white;
-    gap: 2px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-}
-
-.legend .range-item {
-    min-width: 70px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 1px 1px 2px #757575;
-    transition: transform 0.2s ease;
-}
-
-.legend .range-item.highlighted {
-    transform: scale(1.15);
-    box-shadow: 0 0 10px #fff;
-    z-index: 10;
-}
-
-.leaflet-tooltip.custom {
-    background: #fff;
-    color: #949494;
-    border: none;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 4px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-}
-
-
-
-html, body {
-    font-family: 'Roboto Condensed', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #1a1a1a;
-    overflow: hidden;
-}
-
-/* Encabezado Centrado */
-.map-overlay-header {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0; /* Detrás de los controles */
+    background: #222; 
+}
+
+/* --- HEADER --- */
+.map-overlay-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
     z-index: 1000;
     display: flex;
     justify-content: center;
-    pointer-events: none; /* No interfiere con el mapa */
+    pointer-events: none;
 }
-
-
-
-
-
 
 .header-content {
     background: rgba(26, 26, 26, 0.9);
-    padding: 12px 40px;
-    border-radius: 0 0 20px 20px;
+    padding: 10px 30px;
+    border-radius: 0 0 15px 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    pointer-events: auto; /* Para que el logo o texto sea clickable si quieres */
+    pointer-events: auto;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.map-logo {
-    height: 65px; /* Tamaño del logo */
-    margin-bottom: 15px;
-}
+.map-logo { height: 50px; margin-bottom: 5px; }
+#mainTitle { margin: 0; font-size: 20px; color: #fff; text-transform: uppercase; }
+#subTitle { margin: 0; font-size: 13px; color: #bbb; }
 
-#mainTitle {
-    margin: 0;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-align: center;
-}
-
-/* Ajuste de los controles para que no choquen con el logo si la pantalla es pequeña */
+/* --- CONTROLES (IZQUIERDA) --- */
 .controls {
-    top: 20px;
-    left: 20px;
-    /* ... resto de tu código de controles ... */
-}
-
-
-.side-images {
     position: absolute;
-    top: 400px;  /* posición desde el top */
-    left: 10px;
+    top: 20px; left: 20px;
+    background: rgba(30, 30, 30, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    gap: 150px;   /* espacio entre imágenes */
-    z-index: 2000; 
+    gap: 8px;
+    width: 240px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.map-button {
+    background: #ff8c1a;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.controls label { font-size: 11px; color: #888; text-transform: uppercase; }
+.controls select { background: #222; color: #fff; border: 1px solid #444; padding: 4px; }
+
+/* --- IMÁGENES (ARRIBA DERECHA) --- */
+.side-images {
+    position: absolute;
+    top: 20px; /* Subido al máximo */
+    right: 60px; /* Espacio para el selector de capas de Leaflet */
+    display: flex;
+    flex-direction: row; /* En fila para que ocupen menos espacio arriba */
+    gap: 10px;
+    z-index: 1000;
 }
 
 .side-image {
-    width: 150px; /* ancho fijo */
+    width: 60px; /* Más pequeñas para que no estorben */
     height: auto;
-    display: block;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    background: white;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
+
+/* --- LEYENDA --- */
+.legend {
+    background: rgba(30, 30, 30, 0.9) !important;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex !important;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+.range-item {
+    min-width: 60px; height: 25px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: bold;
+}
+.range-item.highlighted { transform: scale(1.2); border: 1px solid white; }
+
 
 
 
