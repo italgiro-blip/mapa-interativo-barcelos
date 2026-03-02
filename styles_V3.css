@@ -144,10 +144,11 @@ html, body {
 }
 
 /* --- BOTÓN FLOTANTE DE ONDAS (VÍNCULO OTRA WEB) --- */
+/* --- BOTÓN FLOTANTE DE ONDAS (MOVIDO A LA IZQUIERDA) --- */
 .btn-wave-link {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 30px; /* Cambiado de right a left */
     width: 45px;
     height: 45px;
     background-color: #ff8c1a;
@@ -161,7 +162,9 @@ html, body {
     transition: transform 0.3s;
 }
 
-.btn-wave-link:hover { transform: scale(1.1); }
+.btn-wave-link:hover {
+    transform: scale(1.1);
+}
 
 .wave-ring {
     position: absolute;
@@ -173,11 +176,19 @@ html, body {
     animation: ripple 2.5s infinite ease-out;
 }
 
-.wave-ring:nth-child(2) { animation-delay: 1.25s; }
+.wave-ring:nth-child(2) {
+    animation-delay: 1.25s;
+}
 
 @keyframes ripple {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(2.8); opacity: 0; }
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2.8);
+        opacity: 0;
+    }
 }
 
 /* --- TOOLTIP PERSONALIZADO --- */
@@ -189,3 +200,4 @@ html, body {
     padding: 5px 10px;
     border-radius: 4px;
 }
+
