@@ -1,72 +1,150 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Leaflet con Escala Discreta</title>
+    <title>Município de Barcelos | Indicadores Geográficos</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles_V3.css">
+
+    <style>
+        /* --- ESTILOS ESPECÍFICOS PARA EL BOTÓN DE ONDAS --- */
+        .btn-wave-link {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff8c1a; /* Naranja Barcelos */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-wave-link:hover {
+            transform: scale(1.1);
+            background-color: #e65c00;
+        }
+
+        .btn-icon-link {
+            font-size: 22px;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Las ondas */
+        .wave-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background-color: #ff8c1a;
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: 1;
+            animation: ripple-effect 3s infinite ease-out;
+        }
+
+        /* Segunda onda con retraso */
+        .wave-ring:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes ripple-effect {
+            0% {
+                width: 50px;
+                height: 50px;
+                opacity: 0.6;
+            }
+            100% {
+                width: 120px;
+                height: 120px;
+                opacity: 0;
+            }
+        }
+
+        /* Ajuste visual para que no tape la leyenda si está a la derecha */
+        @media (max-width: 600px) {
+            .btn-wave-link { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="controls">
-    <h3 id="subTitle">Por favor, clique no botão </h3>
-    <button type="button" id="btnCargarGeoJSON" class="map-button">Visualizar Indicadores GeoJSON </button>
-    <label>ID <select id="idSelect"></select></label>
-    <label>Etiqueta <select id="labelSelect"></select></label>
-    <label>Variável <select id="variableSelect"></select></label>
-    <label>Classificação
-        <select id="classificationSelect">
-            <option value="equal">Intervalos Iguais</option>
-            <option value="jenks">Quebras Naturais</option>
-            <option value="quantile">Quantis</option>
-        </select>
-    </label>
-    <label>Paleta
-        <select id="paletteSelect">
-            <option value="blue">Azul</option>
-<option value="azure">Violeta</option>
-<option value="red">Vermelho</option>
-<option value="green">Verde</option>
-<option value="purple">Roxo</option>
-<option value="fire">Laranja</option>
-        </select>
-    </label>
-</div>
-
-<div class="map-overlay-header">
-    <div class="header-content">
-        <img src="https://w7.pngwing.com/pngs/464/735/png-transparent-barcelos-portugal-portuguese-cuisine-chicken-rooster-caldeirada-rooster-animals-galliformes-bird-thumbnail.png" alt="Logo" class="map-logo">
-        <h1 id="mainTitle">MUNICÍPIO DE BARCELOS</h1>
-        <p>Análise de Distribuição e Indicadores Geográficos</p>
-        <h2 id="subTitle">Selecione uma variável</h2>
-
-    </div>
-</div>
-
-<div class="controls">
-    <!-- filtros -->
+    <div class="map-overlay-header">
+        <div class="header-content">
+            <img src="https://w7.pngwing.com/pngs/464/735/png-transparent-barcelos-portugal-portuguese-cuisine-chicken-rooster-caldeirada-rooster-animals-galliformes-bird-thumbnail.png" alt="Logo" class="map-logo">
+            <div class="titles-wrapper">
+                <h1 id="mainTitle">MUNICÍPIO DE BARCELOS</h1>
+                <p>Análise de Distribuição e Indicadores Geográficos</p>
+                <h2 id="subTitleHeader" style="font-size: 0.9em; color: #ff8c1a; margin: 0;">Selecione uma variável no painel</h2>
+            </div>
+        </div>
     </div>
 
-<div class="side-images">
-    <img src="https://www.heraldicacivica.pt/images/armas/bcl.gif" alt="Imagen Superior" class="side-image top">
-    <img src="https://www.crwflags.com/fotw/images/p/pt-bcl.gif" class="side-image bottom">
-</div>
+    <div class="controls">
+        <h3 id="panelTitle" style="margin-top: 0; color: #ff8c1a;">Painel de Análise</h3>
+        <p style="font-size: 0.85em; color: #ccc;">Por favor, clique no botão para carregar:</p>
+        
+        <button type="button" id="btnCargarGeoJSON" class="map-button">Visualizar Indicadores GeoJSON</button>
+        
+        <div class="separator" style="height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
 
-<div id="map"></div>
+        <label>ID <select id="idSelect"><option>Aguardando...</option></select></label>
+        <label>Etiqueta <select id="labelSelect"><option>Aguardando...</option></select></label>
+        <label>Variável <select id="variableSelect"><option>Aguardando...</option></select></label>
+        
+        <label>Classificação
+            <select id="classificationSelect">
+                <option value="jenks">Quebras Naturais (Jenks)</option>
+                <option value="equal">Intervalos Iguais</option>
+                <option value="quantile">Quantis (Estatístico)</option>
+            </select>
+        </label>
+        
+        <label>Paleta de Cores
+            <select id="paletteSelect">
+                <option value="blue">Azul Oceano</option>
+                <option value="azure">Violeta Profundo</option>
+                <option value="red">Vermelho Alerta</option>
+                <option value="green">Verde Floresta</option>
+                <option value="purple">Roxo Imperial</option>
+                <option value="fire">Laranja Fogo</option>
+            </select>
+        </label>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <div id="infoCard" class="info-card" style="display:none;">
+            <p id="detailNome"><b>Freguesia:</b> --</p>
+            <p id="detailValor"><b>Valor:</b> --</p>
+        </div>
+    </div>
 
-<!-- Nuestro JS -->
-<script src="script_V3.js"></script>
+    <div class="side-images">
+        <img src="https://www.heraldicacivica.pt/images/armas/bcl.gif" alt="Escudo Barcelos" class="side-image top">
+        <img src="https://www.crwflags.com/fotw/images/p/pt-bcl.gif" alt="Bandeira Barcelos" class="side-image bottom">
+    </div>
+
+    <div id="map"></div>
+
+    <a href="URL_DE_TU_OTRA_WEB_AQUI" class="btn-wave-link" title="Ir para a outra plataforma" target="_blank">
+        <div class="wave-ring"></div>
+        <div class="wave-ring"></div>
+        <span class="btn-icon-link">🔄</span>
+    </a>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script_V3.js"></script>
 
 </body>
 </html>
-
