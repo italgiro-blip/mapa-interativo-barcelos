@@ -200,4 +200,67 @@ html, body {
     padding: 5px 10px;
     border-radius: 4px;
 }
+/* --- FIX TOTAL PARA MÓVILES (SOLO CSS) --- */
+@media (max-width: 768px) {
+    
+    /* Evitamos que el cuerpo de la página se mueva */
+    body { overflow: hidden; }
+
+    /* REDUCIR EL HEADER: Para que no ocupe 1/3 de la pantalla */
+    .map-overlay-header {
+        top: 0;
+    }
+    .header-content {
+        padding: 5px 10px !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        flex-direction: row !important; /* Logo al lado del texto */
+        gap: 10px;
+    }
+    .map-logo { height: 30px !important; margin: 0 !important; }
+    #mainTitle { font-size: 14px !important; }
+    
+    /* OCULTAR SUBTÍTULOS: En móvil solo estorban */
+    .header-content p, #subTitleHeader { 
+        display: none !important; 
+    }
+
+    /* REUBICAR CONTROLES: Los mandamos abajo */
+    .controls {
+        top: auto !important;
+        bottom: 10px !important;
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important; /* Se ajusta al ancho del celu */
+        max-height: 40vh !important; /* Que no tape más de la mitad */
+        overflow-y: auto !important; /* Por si hay muchas opciones, permite scroll */
+        padding: 12px !important;
+        gap: 8px !important;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.5) !important;
+    }
+
+    /* AJUSTAR FORMULARIOS: Más compactos */
+    .controls label {
+        font-size: 11px !important;
+        flex-direction: row !important; /* Label al lado del select */
+        justify-content: space-between;
+        align-items: center;
+    }
+    .controls select {
+        width: 60% !important;
+        padding: 4px !important;
+    }
+
+    /* OCULTAR IMÁGENES LATERALES: En el celu tapan el mapa */
+    .side-images {
+        display: none !important;
+    }
+
+    /* EL BOTÓN FLOTANTE: Lo movemos para que no tape los controles */
+    .btn-wave-link {
+        bottom: 80px !important; /* Más arriba de los controles */
+        left: 15px !important;
+        transform: scale(0.8);
+    }
+}
 
