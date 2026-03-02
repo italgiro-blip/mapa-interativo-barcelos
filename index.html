@@ -11,74 +11,7 @@
 
     <link rel="stylesheet" href="styles_V3.css">
 
-    <style>
-        /* --- ESTILOS ESPECÍFICOS PARA EL BOTÓN DE ONDAS --- */
-        .btn-wave-link {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: #ff8c1a; /* Naranja Barcelos */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            z-index: 9999;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .btn-wave-link:hover {
-            transform: scale(1.1);
-            background-color: #e65c00;
-        }
-
-        .btn-icon-link {
-            font-size: 22px;
-            z-index: 10;
-            position: relative;
-        }
-
-        /* Las ondas */
-        .wave-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background-color: #ff8c1a;
-            border-radius: 50%;
-            opacity: 0.6;
-            z-index: 1;
-            animation: ripple-effect 3s infinite ease-out;
-        }
-
-        /* Segunda onda con retraso */
-        .wave-ring:nth-child(2) {
-            animation-delay: 1.5s;
-        }
-
-        @keyframes ripple-effect {
-            0% {
-                width: 50px;
-                height: 50px;
-                opacity: 0.6;
-            }
-            100% {
-                width: 120px;
-                height: 120px;
-                opacity: 0;
-            }
-        }
-
-        /* Ajuste visual para que no tape la leyenda si está a la derecha */
-        @media (max-width: 600px) {
-            .btn-wave-link { bottom: 20px; right: 20px; width: 40px; height: 40px; }
-        }
-    </style>
+   
 </head>
 <body>
 
@@ -148,3 +81,4 @@
 
 </body>
 </html>
+
